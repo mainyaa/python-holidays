@@ -3000,6 +3000,32 @@ class TestNorway(unittest.TestCase):
         self.assertFalse('2016-12-28' in self.holidays_with_sundays)
 
 
+class TestFR(unittest.TestCase):
+
+    def setUp(self):
+        self.holidays = holidays.France()
+        self.prov_holidays = dict((prov, holidays.France(prov=prov))
+                                  for prov in holidays.France.PROVINCES)
+
+    def test_2017(self):
+        self.assertTrue(date(2017, 1, 1) in self.holidays)
+        self.assertTrue(date(2017, 4, 17) in self.holidays)
+        self.assertTrue(date(2017, 5, 1) in self.holidays)
+        self.assertTrue(date(2017, 5, 8) in self.holidays)
+        self.assertTrue(date(2017, 5, 25) in self.holidays)
+        self.assertTrue(date(2017, 6, 5) in self.holidays)
+        self.assertTrue(date(2017, 7, 14) in self.holidays)
+        self.assertTrue(date(2017, 8, 15) in self.holidays)
+        self.assertTrue(date(2017, 11, 1) in self.holidays)
+        self.assertTrue(date(2017, 11, 11) in self.holidays)
+        self.assertTrue(date(2017, 12, 25) in self.holidays)
+
+    def test_alsace_moselle(self):
+        am_holidays = self.prov_holidays['Alsace-Moselle']
+        self.assertTrue(date(2017, 4, 14) in am_holidays)
+        self.assertTrue(date(2017, 12, 26) in am_holidays)
+
+
 class TestJapan(unittest.TestCase):
     def setUp(self):
         self.holidays = holidays.Japan(observed=False)
